@@ -385,8 +385,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTr: {fileID: 1453505051}
-  distance: 10
+  distance: 4.8
   height: 2
+  damping: 0.2
+  targetOffset: 2
 --- !u!1001 &977068066
 PrefabInstance:
   m_ObjectHideFlags: 0
