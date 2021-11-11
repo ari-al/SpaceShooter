@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7367595155980139307}
   - component: {fileID: 4358921509705812716}
   - component: {fileID: 3232002819894692643}
-  - component: {fileID: 7597554751305566580}
+  - component: {fileID: 6827543841066738815}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -96,7 +96,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7597554751305566580
+--- !u!114 &6827543841066738815
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,3 +108,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30688eb46f0da42479e8b1f47c09d67f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sparkEffect: {fileID: 1000011945391522, guid: 78b71003e8b357d4bbf89c8b5e5e4f0e, type: 3}
