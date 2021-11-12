@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 937360512173920732}
   - component: {fileID: 4442915702207107164}
   - component: {fileID: 4442915702207107165}
-  - component: {fileID: 4442915702207107152}
+  - component: {fileID: 40728720114919152}
   m_Layer: 3
   m_Name: Barrel
   m_TagString: Untagged
@@ -161,7 +161,7 @@ CapsuleCollider:
   m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 1.25, z: 0}
---- !u!114 &4442915702207107152
+--- !u!114 &40728720114919152
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

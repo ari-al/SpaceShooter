@@ -12,6 +12,8 @@ public class BarrelCtrl : MonoBehaviour
     // 폭발 반경
     public float radius = 10.0f;
     // 하위에 있는 Mesh renderer 컴포넌트를 저장할 변수
+    // 클래스 선언부에 선언한 renderer 변수는 유니티의 Component.renderer로 정의된 멤버 변수로서 new 키워드를 사용하지 않으면
+    // 경고 문구를 표시한다. new 키워드는 상속받음 Base 멤버 변수가 아니라 새롭게 선언한 변수라는 의미다.
     private new MeshRenderer renderer;
     // 스파크 파티클 프리팹을 연결할 변수
     public GameObject sparkEffect;
@@ -64,7 +66,7 @@ public class BarrelCtrl : MonoBehaviour
         // 폭발 효과 파티클 생성
         GameObject exp = Instantiate(expEffect, tr.position, Quaternion.identity);
         // 폭발 효과 파티클 5초 후에 제거
-        Destroy(exp, 5.0f);
+        Destroy(exp, 0.5f);
 
         // Rigidbody 컴포넌트의 mass를 1.0으로 수정해 무게를 가볍게 함
         // rb.mass = 1.0f;
