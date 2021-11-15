@@ -35,8 +35,22 @@ public class MonsterCtrl : MonoBehaviour
     private readonly int hashAttack = Animator.StringToHash("IsAttack");
     private readonly int hashHit = Animator.StringToHash("Hit");
     private readonly int hashPlayerDie = Animator.StringToHash("PlayerDie");
-    // Animator 파라미터의 해시값 추출
     private readonly int hashSpeed = Animator.StringToHash("Speed");
+    private readonly int hashDie = Animator.StringToHash("Die");
+    // 몬스터 생명 변수
+    private int hp = 100;
+
+    // 이벤트는 반두시 스크립트의 활성화 시점에 연결하고, 비활성화될 때 해제해야 한다.
+    // 스크립트가 활성화될 때마다 호출되는 함수
+    void OnEnable(){
+        // 이벤트 발생 시 수행할 함수 연결
+        PlayerCtrl.OnPlayerDie += this.OnPlayerDie; //(이벤트가 선언된 클래스명),(이벤트명) += (이벤트 발생 시 호출할 함수)
+    }
+    // 스크립트가 비활성화될 때마다 호출되는 함수
+    void OnDisable(){
+        // 기존에 연결된 함수 해제
+        PlayerCtrl.OnPlayerDie -= this.OnPlayerDie; //(이벤트가 선언된 클래스명),(이벤트명) -= (이벤트 발생 시 호출할 함수)
+    }
 
     // 혈흔 효과 프리팹
     private GameObject bloodEffect;
@@ -74,6 +88,9 @@ public class MonsterCtrl : MonoBehaviour
         while(!isDie){
             //0.3초 동안 중지(대기)하는 동안 제어권을 메시지 루프에 양보
             yield return new WaitForSeconds(0.3f);
+
+            // 몬스터의 상태가 DIE일 때 코루틴으 ㄹ종료
+            if(state == State.DIE) yield break;
 
             // 몬스터와 주인공 캐릭터 사이의 거리 측정
             float distance = Vector3.Distance(playerTr.position, monsterTr.position);
@@ -121,6 +138,13 @@ public class MonsterCtrl : MonoBehaviour
 
                 // 사망
                 case State.DIE:
+                    isDie = true;
+                    //추적 정지
+                    agent.isStopped = true;
+                    // 사망 애니메이션 실행
+                    anim.SetTrigger(hashDie);
+                    // 몬스터의 Collider 컴포넌트 비활성화
+                    GetComponent<CapsuleCollider>().enabled = false;
                     break;
             }
             yield return new WaitForSeconds(0.3f);
@@ -140,6 +164,12 @@ public class MonsterCtrl : MonoBehaviour
             Quaternion rot = Quaternion.LookRotation(-coll.GetContact(0).normal);
             // 혈흔 효과를 생성하는 함수 호출
             ShowBloodEffect(pos, rot);
+
+            // 몬스터의 hp 차감
+            hp -= 10;
+            if(hp <= 0){
+                state = State.DIE;
+            }
         }
     }
 
@@ -175,6 +205,7 @@ public class MonsterCtrl : MonoBehaviour
         anim.SetFloat(hashSpeed, Random.Range(0.8f, 1.2f));
         anim.SetTrigger(hashPlayerDie);
     }
+
     // Update is called once per frame
     void Update()
     {
